@@ -1,3 +1,16 @@
+# Project-related
+in-progress/
+results/
+.idea/
+.vscode/
+lightning_logs/
+*.code-workspace
+
+*.pth
+*.pt
+*.ckpt
+*.safetensors
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
