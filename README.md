@@ -2,7 +2,7 @@
 
 [Yunxiang Zhang](https://yunxiangzhang.github.io/), Nan Wu, [Connor Lin](https://connorzlin.com/), [Gordon Wetzstein](https://web.stanford.edu/~gordonwz/), [Qi Sun](https://qisun.me/) \
 Published in ACM Transactions on Applied Perception 2024 \
-Presented at ACM Symposium on Applied Perception 2024 (<span style="color: #e0144c;"> Best Paper Award </span> and <span style="color: #e0144c;"> Best Presentation Award </span>) \
+Presented at ACM Symposium on Applied Perception 2024 (<span style="color: #e0144c;">Best Paper Award</span> and <span style="color: #e0144c;">Best Presentation Award</span>) \
 [\[Paper\]](https://www.immersivecomputinglab.org/wp-content/uploads/2024/09/gaze_fusion_tap.pdf) [\[Project Page\]](https://www.immersivecomputinglab.org/publication/gazefusion-saliency-guided-image-generation/) [\[Video\]](https://www.youtube.com/watch?v=vFa8cyYhdD4&t=3s)
 
 <p style="width: 90%; margin: 0 auto;">
@@ -21,10 +21,10 @@ Diffusion models offer unprecedented image generation power given just a text pr
 The code and data for training GazeFusion will be released soon, please stay tuned!
 
 ## Acknowledgements
-
+We would like to thank [Saining Xie](https://www.sainingxie.com/), [Anyi Rao](https://anyirao.com/), and [Zoya Bylinskii](http://zoyathinks.com/) for fruitful early discussion, and the authors of [Stable Diffusion](https://github.com/CompVis/stable-diffusion), [ControlNet](https://github.com/lllyasviel/ControlNet), [BLIP-2](https://arxiv.org/abs/2301.12597), [EML-Net](https://github.com/SenJia/EML-NET-Saliency), and [Text2Video-Zero](https://github.com/Picsart-AI-Research/Text2Video-Zero) for their great work, based on which GazeFusion was developed.
 
 ## Citation
-If you find this work useful to your research, please consider citing [BibTeX](Docs/gazefusion.bib):
+If you find this work useful to your research, please consider citing [BibTeX](docs/gazefusion.bib):
 ```bibtex
 @article{zhang2024gazefusion,
   title={GazeFusion: Saliency-guided Image Generation},
