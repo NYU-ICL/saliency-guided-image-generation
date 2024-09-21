@@ -13,7 +13,7 @@ Diffusion models offer unprecedented image generation power given just a text pr
 
 ## Inference
 1. Create a dedicated Conda environment: `conda env create -f environment.yaml; conda activate gazefusion`;
-2. Download the trained GazeFusion model from [OneDrive](https://1drv.ms/u/s!Ahl4AorfaIk6kYkHmGDlCXJjbgAYRg) and place it under the `models/` folder;
+2. Download the trained GazeFusion model from [OneDrive](https://1drv.ms/f/s!Ahl4AorfaIk6kYkGK9P9xViu9oV4Jg?e=mhbksK) and place it under the `models/` folder;
 3. Place your custom saliency map files under the `smaps/` folder (or use a provided one);
 4. Generate a few image samples with saliency guidance: `python generate.py --smap your_smap --prompt your_prompt`.
 
