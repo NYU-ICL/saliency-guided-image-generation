@@ -1,6 +1,8 @@
 # Project-related
+huggingface/
 in-progress/
-results/
+data/
+logs/
 .idea/
 .vscode/
 lightning_logs/

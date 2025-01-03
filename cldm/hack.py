@@ -1,22 +1,20 @@
-import torch
 import einops
-
-import ldm.modules.encoders.modules
-import ldm.modules.attention
-
+import torch
 from transformers import logging
+
+import ldm.modules.attention
+import ldm.modules.encoders.modules
 from ldm.modules.attention import default
 
 
 def disable_verbosity():
     logging.set_verbosity_error()
-    print('logging improved.')
     return
 
 
 def enable_sliced_attention():
     ldm.modules.attention.CrossAttention.forward = _hacked_sliced_attentin_forward
-    print('Enabled sliced_attention.')
+    print('Sliced attention enabled')
     return
 
 

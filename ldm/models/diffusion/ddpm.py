@@ -6,27 +6,43 @@ https://github.com/CompVis/taming-transformers
 -- merci
 """
 
-import torch
-import torch.nn as nn
-import numpy as np
-import pytorch_lightning as pl
-from torch.optim.lr_scheduler import LambdaLR
-from einops import rearrange, repeat
+import itertools
 from contextlib import contextmanager, nullcontext
 from functools import partial
-import itertools
-from tqdm import tqdm
-from torchvision.utils import make_grid
-from pytorch_lightning.utilities.distributed import rank_zero_only
+
+import numpy as np
+import pytorch_lightning as pl
+import torch
+import torch.nn as nn
+from einops import rearrange, repeat
 from omegaconf import ListConfig
+from pytorch_lightning.utilities import rank_zero_only
+from torch.optim.lr_scheduler import LambdaLR
+from torchvision.utils import make_grid
+from tqdm import tqdm
 
-from ldm.util import log_txt_as_img, exists, default, ismap, isimage, mean_flat, count_params, instantiate_from_config
-from ldm.modules.ema import LitEma
-from ldm.modules.distributions.distributions import normal_kl, DiagonalGaussianDistribution
-from ldm.models.autoencoder import IdentityFirstStage, AutoencoderKL
-from ldm.modules.diffusionmodules.util import make_beta_schedule, extract_into_tensor, noise_like
+from ldm.models.autoencoder import AutoencoderKL, IdentityFirstStage
 from ldm.models.diffusion.ddim import DDIMSampler
-
+from ldm.modules.diffusionmodules.util import (
+    extract_into_tensor,
+    make_beta_schedule,
+    noise_like,
+)
+from ldm.modules.distributions.distributions import (
+    DiagonalGaussianDistribution,
+    normal_kl,
+)
+from ldm.modules.ema import LitEma
+from ldm.util import (
+    count_params,
+    default,
+    exists,
+    instantiate_from_config,
+    isimage,
+    ismap,
+    log_txt_as_img,
+    mean_flat,
+)
 
 __conditioning_keys__ = {'concat': 'c_concat',
                          'crossattn': 'c_crossattn',
@@ -209,7 +225,7 @@ class DDPM(pl.LightningModule):
 
     @torch.no_grad()
     def init_from_ckpt(self, path, ignore_keys=list(), only_model=False):
-        sd = torch.load(path, map_location="cpu")
+        sd = torch.load(path, map_location="cpu", weights_only=True)
         if "state_dict" in list(sd.keys()):
             sd = sd["state_dict"]
         keys = list(sd.keys())
@@ -589,7 +605,7 @@ class LatentDiffusion(DDPM):
 
     @rank_zero_only
     @torch.no_grad()
-    def on_train_batch_start(self, batch, batch_idx, dataloader_idx):
+    def on_train_batch_start(self, batch, batch_idx):
         # only for very first batch
         if self.scale_by_std and self.current_epoch == 0 and self.global_step == 0 and batch_idx == 0 and not self.restarted_from_ckpt:
             assert self.scale_factor == 1., 'rather not use custom rescaling and std-rescaling simultaneously'
@@ -1525,7 +1541,7 @@ class LatentFinetuneDiffusion(LatentDiffusion):
             self.init_from_ckpt(ckpt_path, ignore_keys)
 
     def init_from_ckpt(self, path, ignore_keys=list(), only_model=False):
-        sd = torch.load(path, map_location="cpu")
+        sd = torch.load(path, map_location="cpu", weights_only=True)
         if "state_dict" in list(sd.keys()):
             sd = sd["state_dict"]
         keys = list(sd.keys())
